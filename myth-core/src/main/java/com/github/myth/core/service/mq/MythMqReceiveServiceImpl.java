@@ -18,7 +18,6 @@
 
 package com.github.myth.core.service.mq;
 
-import com.github.myth.common.serializer.ObjectSerializer;
 import com.github.myth.core.coordinator.CoordinatorService;
 import com.github.myth.core.service.MythMqReceiveService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -276,7 +276,7 @@ public class FileCoordinatorRepository implements CoordinatorRepository {
      *
      * @return The result of make root directory
      * @throws RepositoryException When the root directory failure is created,
-     *                             it will be thrown the {@link com.github.myth.core.exception.RepositoryException}
+     *         it will be thrown the {@link com.github.myth.core.exception.RepositoryException}
      */
     private boolean makeDirIfNecessary() throws RepositoryException {
         if (!initialized.getAndSet(true)) {

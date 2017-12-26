@@ -68,10 +68,7 @@ import java.util.concurrent.locks.ReentrantLock;
 @Service("coordinatorService")
 public class CoordinatorServiceImpl implements CoordinatorService {
 
-    /**
-     * logger
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(CoordinatorServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CoordinatorServiceImpl.class);
 
     private static BlockingQueue<CoordinatorAction> QUEUE;
 
@@ -316,7 +313,7 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                 MythTransactionThreadFactory.create("MythAutoRecoverService",
                         true))
                 .scheduleWithFixedDelay(() -> {
-                    LogUtil.debug(LOGGER, "auto recover execute delayTime:{}",
+                    LogUtil.debug(logger, "auto recover execute delayTime:{}",
                             () -> mythConfig.getScheduledDelay());
                     try {
                         final List<MythTransaction> mythTransactionList =
@@ -364,18 +361,18 @@ public class CoordinatorServiceImpl implements CoordinatorService {
             final Class[] parameterTypes = mythInvocation.getParameterTypes();
             final Object bean = SpringBeanUtils.getInstance().getBean(clazz);
             MethodUtils.invokeMethod(bean, method, args, parameterTypes);
-            LogUtil.debug(LOGGER, "Myth执行本地协调事务:{}", () -> mythInvocation.getTargetClass()
+            LogUtil.debug(logger, "Myth执行本地协调事务:{}", () -> mythInvocation.getTargetClass()
                     + ":" + mythInvocation.getMethodName());
         }
     }
 
     private void initCoordinatorPool() {
-        synchronized (LOGGER) {
+        synchronized (logger) {
             QUEUE = new LinkedBlockingQueue<>(mythConfig.getCoordinatorQueueMax());
             final int coordinatorThreadMax = mythConfig.getCoordinatorThreadMax();
             final MythTransactionThreadPool threadPool = SpringBeanUtils.getInstance().getBean(MythTransactionThreadPool.class);
             final ExecutorService executorService = threadPool.newCustomFixedThreadPool(coordinatorThreadMax);
-            LogUtil.info(LOGGER, "启动协调资源操作线程数量为:{}", () -> coordinatorThreadMax);
+            LogUtil.info(logger, "启动协调资源操作线程数量为:{}", () -> coordinatorThreadMax);
             for (int i = 0; i < coordinatorThreadMax; i++) {
                 executorService.execute(new Worker());
             }
@@ -421,7 +418,7 @@ public class CoordinatorServiceImpl implements CoordinatorService {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    LogUtil.error(LOGGER, "执行协调命令失败：{}", e::getMessage);
+                    LogUtil.error(logger, "执行协调命令失败：{}", e::getMessage);
                 }
             }
 

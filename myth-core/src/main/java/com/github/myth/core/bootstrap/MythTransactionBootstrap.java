@@ -49,7 +49,7 @@ public class MythTransactionBootstrap extends MythConfig implements ApplicationC
     }
 
 
-    private void start(MythConfig tccConfig) {
-        mythInitService.initialization(tccConfig);
+    private void start(MythConfig mythConfig) {
+        mythInitService.initialization(mythConfig);
     }
 }

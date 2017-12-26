@@ -21,14 +21,11 @@ package com.github.myth.core.concurrent.threadpool;
 import com.github.myth.common.config.MythConfig;
 import com.github.myth.common.enums.BlockingQueueTypeEnum;
 import com.github.myth.common.enums.RejectedPolicyTypeEnum;
-import com.github.myth.common.utils.LogUtil;
 import com.github.myth.core.concurrent.threadpool.policy.AbortPolicy;
 import com.github.myth.core.concurrent.threadpool.policy.BlockingPolicy;
 import com.github.myth.core.concurrent.threadpool.policy.CallerRunsPolicy;
 import com.github.myth.core.concurrent.threadpool.policy.DiscardedPolicy;
 import com.github.myth.core.concurrent.threadpool.policy.RejectedPolicy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,11 +46,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class MythTransactionThreadPool {
-
-    /**
-     * logger
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(MythTransactionThreadPool.class);
 
     private static final String THREAD_FACTORY_NAME = "tccTransaction";
     private static final int MAX_ARRAY_QUEUE = 1000;
